@@ -1,58 +1,56 @@
-   
 
 
+    
 
-# pura -  
-# BANCO QUE FAZ DEPOSITO
-# SAQUE
-# VER O EXTRATO 
+import streamlit as st
 
-print('BANCO')
+st.title('BANCO')
 
 saldo = 1000.00
 extrato =  [1000.0]
-acessar  =  input('Deseja acessar o banco? s/n')
-while acessar ==  's':
-    senha = '1234'
-    senha_input =  input('Senha: ')
-    
+acessar  =  st.text_input('Deseja acessar o banco? s/n')
+
+
+
+# while acessar ==  's':
+
+
+senha = '1234'
+senha_input = st.text_input('Senha: ')
+
+if st.button('Acessar...'):
+
     if senha_input == senha:
 
-        print('Acesso autorizado...')
+        st.header('Acesso autorizado...')
         menu =  ['','Saque','Deposito','Extrato']
-        print(f'''
-            
-            1 - {menu[1]}
-            2 - {menu[2]}
-            3 - {menu[3]}       
-            
-            ''')
-        escolha  = int(input('Escolha a operação: '))
-        if escolha == 1:
-            
-            saque =  float(input('Saque R$ >>> '))    
-            saldo = saldo - saque
-            print('R$', saldo)
-            extrato.append(-saque)
-            acessar =  input('Deseja continuar? ')
+         
+        escolha = st.number_input('Escolha a operação')
         
-        elif escolha  == 2:
-            
-            deposito =  float(input('Saque R$ >>> '))    
-            saldo = saldo + deposito
-            print('R$', saldo)
-            extrato.append(deposito)
-            acessar =  input('Deseja continuar? ')
-            
-        elif escolha  == 3:
-            print('extrato', extrato)      
-            acessar =  input('Deseja continuar? ')     
-            
-    
+        action = st.menu_button("Escolha", options=['Saque','Deposito','Extrato'])
+        
+        if action == 'Saque':
                 
-        
+                saque =  st.number_input('Saque R$ >>> ')    
+                saldo = saldo - saque
+                st.write('R$', saldo)
+                extrato.append(-saque)
+             
+            
+        elif action == 'Deposito':
+                
+                deposito = st.number_input('Saque R$ >>> ')    
+                saldo = saldo + deposito
+                st.write('R$', saldo)
+                extrato.append(deposito)
+              
+                
+        elif action == 'Extrato':
+                st.write('extrato', extrato)      
+                
+                
     else:
-        print('Acesso negado...')   
-        break 
-else:
-    print('Até logo')        
+       st.text_input('Ate logo')
+            
+        
+   
